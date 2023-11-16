@@ -12,6 +12,27 @@ return $this->db->get("bookings");
 
 
 }
+public function getBookByCustomId($id)
+{
+
+return $this->db->where('customer_id',$id)->get("bookings");
+
+
+}
+public function getBookByBookDate($date)
+{
+
+return $this->db->where('book_date',$date)->get("bookings");
+
+
+}
+public function getBookByTicketId($id)
+{
+
+return $this->db->where('ticket_id',$id)->get("bookings");
+
+
+}
 public function addBook($data)
 {
 

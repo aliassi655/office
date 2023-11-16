@@ -13,10 +13,7 @@ class CityModel {
     }
 
 
-    public function updateCity($id, $data) {
-        $this->db->where('id', $id);
-        return $this->db->update('cities', $data);
-    }
+   
 
     public function deleteCity($id) {
         $this->db->where('id', $id);

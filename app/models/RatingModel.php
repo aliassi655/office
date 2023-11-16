@@ -30,7 +30,9 @@ class RatingModel {
     public function getRatingById($id) {
         return $this->db->where('id', $id)->getOne('Ratings');
     }
-
+    public function getRatingByHotelId($id) {
+        return $this->db->where('hotel_id', $id)->get('Ratings');
+    }
 
 }
 

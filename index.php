@@ -15,20 +15,10 @@ $db = new MysqliDb(
     $config['db_name']
 );
 
-$cont= new CustomerController($db);
-// $company_id=$_POST['company_id'];
-// $city_id=$_POST['city_id'];
-// $date_s=$_POST['date_s'];
-// $date_e=$_POST['date_e'];
-$data=[
-'name'=>'hasan',
-'mobile'=>'0991',
-'gender'=>'male',
-'email'=>'hasan.com',
-];
-$cont->add($data);
-// $url= $_SERVER['REQUEST_URI'];
+$cont= new TicketController($db);
 
-// define("PAGE_PATH",'/mvc/');
-// echo PAGE_PATH;   
+ $cont->getTicketByCompanyId(1);
+
+
+   
 ?>
