@@ -67,7 +67,7 @@ class HotelController {
     }
 
     public function addHotel() {
-    if($_SERVER['POST_REQUEST']==='POST'){
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $data = [
         'name'=>$_POST['name'],
@@ -85,21 +85,6 @@ class HotelController {
     else {
         echo json_encode(['status'=>'not data in post']);
     }
+}
 
 }
-    public function deleteHotel($id) {
-        if($_SERVER['POST_REQUEST']==='POST')
-        {
-        if($this->model->deleteHotel($id)) {
-            
-            echo json_encode(['status'=>'deleted']);
-    
-            }
-            else {
-                echo json_encode(['status'=>'notdeleted']);
-            }
-        }else {
-            echo json_encode(['status'=>'not data in post']);
-        }
-    }
-} 

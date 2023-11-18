@@ -81,12 +81,12 @@ class RatingController {
 
     public function addRating() {
 
-        if($_SERVER['POST_REQUEST']==='POST'){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $data = [
             'hotel_id' => $_POST['hotel_id'],
             'customer_id' => $_POST['customer_id'],
             'rate' => $_POST['rate'],
-            'comment' => $_GET['comment']
+            'comment' => $_POST['comment']
         ];
 
         if($this->model->addRating($data)) {
@@ -105,10 +105,10 @@ class RatingController {
 
     public function updateRating($id) {
 
-        if($_SERVER['POST_REQUEST']==='POST'){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $data = [
                 'rate' => $_POST['rate'],
-                'comment' => $_GET['comment']
+                'comment' => $_POST['comment']
             ];
 
         if($this->model->updateRating($id, $data)) {
@@ -125,22 +125,4 @@ class RatingController {
         }
     }
 
-    public function deleteRating($id) {
-        if($_SERVER['POST_REQUEST']==='POST')
-        {
-        if($this->model->deleteRating($id)) {
-            
-            echo json_encode(['status'=>'deleted']);
-    
-            }
-            else {
-                echo json_encode(['status'=>'notdeleted']);
-            }
-        }else {
-            echo json_encode(['status'=>'not data in post']);
-        }
-    }
 }
-
-
-
