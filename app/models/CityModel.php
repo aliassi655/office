@@ -12,6 +12,11 @@ class CityModel {
         return $this->db->insert('cities', $data);
     }
 
+    public function updateCity($id, $data) {
+        $this->db->where('id', $id);
+        return $this->db->update('cities', $data);
+    }
+
 
    
 
