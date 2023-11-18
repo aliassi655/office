@@ -1,5 +1,6 @@
 <?php
 
+
 require __DIR__.'/../models/TicketModel.php';
 require __DIR__.'/../models/CityModel.php';
 require __DIR__.'/../models/CompanyModel.php';
@@ -44,18 +45,27 @@ public function show($arr){
 
     }
 
-        public function indexTickets(){
-        $res= $tickets=$this->model->getTicket();
+        public function index(){
+        $res= $this->model->getTicket();
     //  $this->show($tickets);
        $this->show($res);
 }   
-       public function getTicketByCityId($id){
+       public function getTicketByCityId(){
+   if($_SERVER['REQUEST_METHOD']=='POST')
+   {
+       $res= $this->model->getTicketByCityId($_POST['city_id']);
+       echo json_encode($res);}
+     
 
-       $res= $this->model->getTicketByCityId($id);
+}
+public function getTicketById($id){
+
+       $res= $this->model->getTicketById($id);
        $this->show($res);
      
 
 }
+
        public function getTicketByCompanyId($id){
 
        $res= $this->model->getTicketByCompanyId($id);
@@ -64,13 +74,25 @@ public function show($arr){
 
 }
 
-       public function getTicketByDate($date_s){
+       public function getTicketByDate(){
+       if($_SERVER['REQUEST_METHOD']=='POST'){
+        $res=$this->model->getTicketDate($_POST['date_s']);
+       
+       $this->show($res);}
 
-       $res= $this->model->getTicketDate($data_s);
- 
-       $this->show($res);
 
 }
+
+
+public function getTicketByDatecity(){
+       if($_SERVER['REQUEST_METHOD']=='POST'){
+        $res=$this->model->getTicketDateCity($_POST['city_id'],$_POST['date_s']);
+       
+       $this->show($res);}
+       
+
+}
+
 
 
 

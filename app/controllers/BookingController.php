@@ -1,33 +1,113 @@
 <?php
 
-require __DIR__.'/../models/Book_flightModel.php';
-class Book_flightController{
+require __DIR__.'/../models/BookingModel.php';
+require __DIR__.'/../models/CustomerModel.php';
+require __DIR__.'/../models/HotelModel.php';
 
-private $model;
-public function __construct($db) {
-    $this->model = new Book_flightModel($db);
+trait results {
+public function show($arr){
+    $data=array();
+    foreach($arr as $val){
+        $cutomer=$this->customer->getCustomerById($val['customer_id']);
+        $hotel=$this->hotel->getHotelById($val['hotel_id']);
+        $d=[
+        'customer_id'=>$cutomer['name'],
+        'hotel_id'=>$hotel['name']
+        ];
+       
+           array_push($data,$d); }
 
-
+        $res=[
+            'data'=>$data,
+            'status'=>"success"
+         ];
+        echo json_encode($res);
+        
+       
+        
 }
 
-
-public function index(){
-
-
-$a=$this->model->getBooks();
-print_r($a);
-
 }
+class BookingController{
+     use test,results;
+    private $model;
+  
+        public function __construct($db) {
+      
+        $this->model = new BookingModel($db);
+        $this->customer=new CustomerModel($db);
+        $this->hotel=new HotelModel($db);
+        }
 
 
+        public function addBooking($idTicket){
+            if($_SERVER['REQUEST_METHOD'])
+            {
+              $data=[
+                'name'=>$_POST['name'],
+                'mobile'=>$_POST['mobile'],
+                'gender'=>$_POST['gender'],
+                'email'=>$_POST['email']
+   
+              ];
+             if($this->customer->addCustomer($data))
+             {
+            $idcusto=$this->customer->getCustomerByEmail($_POST['email']);
+              $addbooking=$this->model->addBook(['ticket_id'=>$idTicket,
+              'customer_id'=>$idcusto['id'],
+              'hotel_id'=>$_POST['hotel_id']]);
+              echo json_encode(['status'=>'success']);
+        
 
+            }
+            else{
+            echo json_encode(['status'=>'nodata']);
+
+            }}}
+
+
+            public function getBookingByTicketId($id){
+                $res=$this->model->getBookByTicketId($id);
+                $this->show($res);
+
+            }
+            public function getBookingByCityId($id){
+                $res=$this->model->getBookByCitytId($id);
+                $this->show($res);
+
+            }
+            public function getBookingById($id){
+                $res=$this->model->getBookById($id);
+                $this->show($res);
+
+            }
+            public function getBookingByCustomName(){
+              if($_SERVER['REQUEST_METHOD']=='POST'){
+                $name=$_POST['name'];
+              if($customData=$this->customer->getCustomerByName($name))
+              {
+              $res=$this->model->getBookByCustomId($customData['id']);
+              $this->show($res);}
+              else{
+                echo json_encode(['status'=>'no such customer']);
+              }
+              }else
+              {
+                echo json_encode(['status'=>'no data in post']);
+              }
+          }
+            public function updateHotelBooking($id){
+            if($_SERVER['REQUEST_METHOD'])
+             {
+              $data=['hotel_id'=>$_POST['hotel_id']];
+              $result=$this->model->updateBook($id,$data);
+             $this->testing($result);
+
+             }else{
+             
+                echo json_encode(["status"=>'no data in post']);
+                 
+
+             }}
 }
-
-
-
-
-
-
-
-
 ?>

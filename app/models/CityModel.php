@@ -1,6 +1,6 @@
 <?php
 
-class CityModel {
+ class CityModel {
     private $db;
 
     public function __construct($db) {

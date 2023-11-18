@@ -1,6 +1,6 @@
 <?php
 
-class RatingModel {
+class HotelModel {
     private $db;
 
     public function __construct($db) {

@@ -8,7 +8,7 @@ class CompanyModel {
     }
 
 
-    public function addCompanies($data) {
+    public function addCompany($data) {
         return $this->db->insert('companies', $data);
     }
 
@@ -29,6 +29,9 @@ class CompanyModel {
 
     public function getCompanyById($id) {
         return $this->db->where('id', $id)->getOne('companies');
+    }
+    public function getCompanyByTitle($title) {
+        return $this->db->where('title', $title)->getOne('companies');
     }
 
 

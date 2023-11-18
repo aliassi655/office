@@ -30,6 +30,12 @@ class CustomerModel {
     public function getCustomerById($id) {
         return $this->db->where('id', $id)->getOne('customers');
     }
+    public function getCustomerByEmail($email) {
+        return $this->db->where('email', $email)->getOne('customers');
+    }
+    public function getCustomerByName($name) {
+        return $this->db->where('name', $name)->getOne('customers');
+    }
 
 
 }

@@ -9,29 +9,29 @@ class RatingModel {
 
 
     public function addRating($data) {
-        return $this->db->insert('Ratings', $data);
+        return $this->db->insert('ratings', $data);
     }
 
 
     public function updateRating($id, $data) {
         $this->db->where('id', $id);
-        return $this->db->update('Ratings', $data);
+        return $this->db->update('ratings', $data);
     }
 
-    public function deleteRating($id) {
-        $this->db->where('id', $id);
-        return $this->db->delete('Ratings');
+    public function deleteRatingCustomer($id) {
+        $this->db->where('customer_id', $id);
+        return $this->db->delete('ratings');
     }
 
     public function getRatings() {
-        return $this->db->get('Ratings');
+        return $this->db->get('ratings');
     }
 
     public function getRatingById($id) {
-        return $this->db->where('id', $id)->getOne('Ratings');
+        return $this->db->where('id', $id)->getOne('ratings');
     }
     public function getRatingByHotelId($id) {
-        return $this->db->where('hotel_id', $id)->get('Ratings');
+        return $this->db->where('hotel_id', $id)->get('ratings');
     }
 
 }
