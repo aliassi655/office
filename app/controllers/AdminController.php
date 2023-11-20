@@ -1,5 +1,7 @@
 <?php
 require __DIR__.'/../models/AdminModel.php';
+//require_once('index.php');
+
 
 class AdminController{
     use test;
@@ -20,7 +22,7 @@ $data=$this->model->addAdmin($d);
 $this->testing($data);}
 else{
 
-echo json_encode(['status'=>'no data in post']);
+echo json_encode(["status"=>'no data in post']);
 }
 
 
@@ -36,8 +38,9 @@ public function deleteAdmin(){
 }
 }
 
-public function updateAdmin($id){
-    if($_SERVER['REQUEST_METHOD'])
+public function updateAdmin( $id){
+    
+    if($_SERVER['REQUEST_METHOD'] === 'POST' )
      {
       $data=['name'=>$_POST['name'],
       'email'=>$_POST['email'],
@@ -51,7 +54,45 @@ public function updateAdmin($id){
          
 
      }}
+
+
+public function login() {
+    
+    $arr = getallheaders();
+    $card = $arr['card'];
+
+    if($this->model->getAdminByCard($card)){
+        return true;
+        
+    }else{
+    if($_SERVER['REQUEST_METHOD']=='POST')
+    {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $admin = $this->model->getAdminByemailandpassword($email, $password);
+        if($admin) {
+            $card = rand(1,10);
+            $data = [
+                'email'=> $email,
+                'password' => $password,
+                'card' => $card
+            ];
+            if($this->model->updateAdmin(($admin['id']), $data))
+             {
+            echo json_encode(["status"=>'succses', 'card'=> $card]);
+
+            }
+            else {
+                echo json_encode(["status"=>'failed']);
+        }
+    }else{
+        echo json_encode(["status"=>'no data in post']);
+    }
+    }
+    return false;
+}
     }
 
 
+}
 ?>

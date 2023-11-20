@@ -28,8 +28,13 @@ $contAdmin= new AdminController($db);
 $contCustomer= new CustomerController($db);
 $request= $_SERVER['REQUEST_URI'];
 
-define('PAGE_PATH','/mvc/');
-
+define('PAGE_PATH','/office/');
+//$admin = new AdminModel($db);
+//$a = $admin->getAdminByemailandpassword($_POST['email'], $_POST['password']);
+//var_dump($a);
+$admin = new AdminController($db);
+//$admin->login();
+if($admin->login()){
 switch ($request) {
     case PAGE_PATH:
         $contTicket->index();
@@ -114,7 +119,7 @@ switch ($request) {
      case PAGE_PATH .'deleteadmin':
         $contAdmin->deleteAdmin();
      break; 
-     case PAGE_PATH .'editadmin?id='.$_GET['id']:
+     case PAGE_PATH .'editadmin?id='.$_GET['id'] :
         $contAdmin->updateAdmin($_GET['id']);
      break; 
      case PAGE_PATH .'updateCustomer?id='.$_GET['id']:
@@ -126,7 +131,10 @@ switch ($request) {
      case PAGE_PATH .'viewCustomers':
         $contCustomer->getCustomers();
      break; 
-     
+}}
+else{
+echo "you canot be do any requst";
+}
             
               
    
@@ -135,7 +143,7 @@ switch ($request) {
     
     
     
-    }
+    
 
 
 

@@ -49,6 +49,7 @@ public function show($arr){
         $res= $this->model->getTicket();
     //  $this->show($tickets);
        $this->show($res);
+      
 }   
        public function getTicketByCityId(){
    if($_SERVER['REQUEST_METHOD']=='POST')
