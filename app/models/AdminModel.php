@@ -26,9 +26,16 @@ class AdminModel {
         return $this->db->get('Admins');
     }
 
-    public function getCustomerById($id) {
+    public function getAdminById($id) {
         return $this->db->where('id', $id)->getOne('Admins');
     }
+    public function getAdminByEmailPassword($email,$password) {
+        return $this->db->where('email', $email)->where('password', $password)->getOne('Admins');
+    }
+    public function getAdminByCard($card) {
+        return $this->db->where('card', $card)->getOne('Admins');
+    }
+
 
 
 }

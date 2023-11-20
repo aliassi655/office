@@ -19,13 +19,15 @@ $res=$this->model->getCustomers();
 $data=array();
  foreach($res as $key=>$value ){
 
-    array_push($data,$value['name']);
+array_push($data,$value['name']);
 }
   $this->testing($data);
+
 }
 
 
 public function updateCustomer($id){
+
     if($_SERVER['REQUEST_METHOD']=='POST')
      {
       $data=['name'=>$_POST['name'],
@@ -41,10 +43,13 @@ public function updateCustomer($id){
         echo json_encode(["status"=>'no data in post']);
          
 
-     }}
+     }
+  }
 
-public function deleteCustomer()
-{ 
+
+
+    public function deleteCustomer()
+{  
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $id=$_POST['id'];
    
@@ -57,6 +62,8 @@ public function deleteCustomer()
 
 
 
+}else{
+   echo json_encode(['status'=>'no data in post']);
 }
 
 

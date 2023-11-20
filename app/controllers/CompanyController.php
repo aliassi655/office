@@ -11,20 +11,27 @@ public function __construct($db) {
 
 public function getCompany()
 {
-
 $data=$this->model->getCompany();
      $this->testing($data);
 
 }
+
+
+
 public function getCompanyByTitle(){
 
-if($_SERVER['REQUEST_METHOD']=='POST'){
- 
 
+if($_SERVER['REQUEST_METHOD']=='POST'){
 $data=$this->model->getCompanyByTitle($_POST['title']);
 $this->testing($data);
 
-}}
+}else{
+
+    echo json_decode(['status'=>'no data in post']);
+}
+
+
+}
 
 
 public function deleteCompany(){
@@ -35,9 +42,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 $data=$this->model->deleteCompany($_POST['id']);
 $this->testing($data);
 
-}}
-public function addCompany(){
+}else{
+ echo json_encode(['status'=>'nodata in post']);
 
+}}
+
+
+public function addCompany(){
+   
     if($_SERVER['REQUEST_METHOD']=='POST'){
      
     $d=['title'=>$_POST['title'],
@@ -48,12 +60,13 @@ public function addCompany(){
     $data=$this->model->addCompany($d);
     $this->testing($data);
     
-    }}
+    }
+  
 
 }
 
 
-
+}
 
 
 

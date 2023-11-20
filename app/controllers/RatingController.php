@@ -5,16 +5,16 @@ require __DIR__.'/../models/RatingModel.php';
 
 class   RatingController{
     use test;
-private $model;
-public function __construct($db){
+    private $model;
+    public function __construct($db){
     $this->model = new  RatingModel($db);
    $this->customer = new CustomerModel($db);
    $this->Hotel = new HotelModel($db);
 }
 
 
-public function addRating($idhotel){
-
+    public function addRating($idhotel){
+   
     if($_SERVER['REQUEST_METHOD']=='POST'){
        $customEmail=$_POST['custom_email'];
        $rating=$_POST['rating'];
@@ -41,14 +41,15 @@ public function addRating($idhotel){
     }
 
 
+
 }
 
 public function getRatingByHotelId($id){
+  
+   $arr=$this->model->getRatingByHotelId($id);
 
-$arr=$this->model->getRatingByHotelId($id);
-
-$data=array();
-foreach($arr as $val){
+   $data=array();
+   foreach($arr as $val){
     $custo= $this->customer->getCustomerById($val['customer_id']);
     $hotel=$this->Hotel->getHotelById($val['hotel_id']);
     $d=[
@@ -65,10 +66,14 @@ foreach($arr as $val){
         'status'=>"success"
      ];
     echo json_encode($res);
-
+  
 }
-public function updateRating($id){
 
+
+
+    public function updateRating($id){
+  
+  
     if($_SERVER['REQUEST_METHOD']=='POST'){
       $d=[
        'rate'=>$_POST['rate'],
@@ -81,7 +86,10 @@ public function updateRating($id){
 
         echo json_encode(['status'=>'no data in post']);
     }
+
 }
+
+
 
 
 

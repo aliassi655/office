@@ -6,9 +6,9 @@ require __DIR__.'/../models/CityModel.php';
 require __DIR__.'/../models/CompanyModel.php';
 trait result {
 
-public function show($arr){
-    $data=array();
-    foreach($arr as $val){
+        public function show($arr){
+        $data=array();
+        foreach($arr as $val){
         $city=$this->city->getCityById($val['city_id']);
         $company=$this->Company->getCompanyById($val['company_id']);
         $d=[
@@ -42,24 +42,28 @@ public function show($arr){
         $this->model = new TicketModel($db);
         $this->city=new CityModel($db);
         $this->Company=new CompanyModel($db);
-
+        $this->admin=new AdminModel($db);
     }
 
         public function index(){
+
         $res= $this->model->getTicket();
-    //  $this->show($tickets);
+
+        $this->show($res);
+       //  else
+       // {
+       //  echo json_encode(["status"=>'not authenticate']);
+       // }
+}   
+       public function getTicketByCityId($id){
+    
+       $res= $this->model->getTicketByCityId($id);
        $this->show($res);
 }   
-       public function getTicketByCityId(){
-   if($_SERVER['REQUEST_METHOD']=='POST')
-   {
-       $res= $this->model->getTicketByCityId($_POST['city_id']);
-       echo json_encode($res);}
-     
 
-}
-public function getTicketById($id){
 
+       public function getTicketById($id){
+  
        $res= $this->model->getTicketById($id);
        $this->show($res);
      
@@ -67,26 +71,18 @@ public function getTicketById($id){
 }
 
        public function getTicketByCompanyId($id){
-
+  
        $res= $this->model->getTicketByCompanyId($id);
  
        $this->show($res);
-
 }
 
-       public function getTicketByDate(){
+ 
+
+
+       public function getTicketDateAndCity(){
        if($_SERVER['REQUEST_METHOD']=='POST'){
-        $res=$this->model->getTicketDate($_POST['date_s']);
-       
-       $this->show($res);}
-
-
-}
-
-
-public function getTicketByDatecity(){
-       if($_SERVER['REQUEST_METHOD']=='POST'){
-        $res=$this->model->getTicketDateCity($_POST['city_id'],$_POST['date_s']);
+        $res=$this->model->getTicketDateAndCity($_POST['city_id'],$_POST['date_s']);
        
        $this->show($res);}
        

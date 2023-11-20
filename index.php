@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/config/config.php';
+
 require_once __DIR__. '/lib/DB/MysqliDb.php';
 require_once __DIR__. '/app/controllers/TicketController.php';
 require_once __DIR__. '/app/controllers/CityController.php';
@@ -28,6 +29,11 @@ $contAdmin= new AdminController($db);
 $contCustomer= new CustomerController($db);
 $request= $_SERVER['REQUEST_URI'];
 
+$contAdmin->login();
+
+
+
+
 define('PAGE_PATH','/mvc/');
 
 switch ($request) {
@@ -37,18 +43,15 @@ switch ($request) {
     case PAGE_PATH . 'viewticket?id=' . $_GET['id']:
         $contTicket->getTicketById($_GET['id']);
         break;
-    case PAGE_PATH . 'viewticketcity':
-      $contTicket->getTicketByCityId();
-            break;
-    case PAGE_PATH . 'viewticketompany'.$_GET['id']:
-         $contTicket->getTicketByCompanyId($_GET['id']);
-            break;
-     case PAGE_PATH . 'viewticketdate':
-         $contTicket->getTicketByDate();
+    case PAGE_PATH . 'viewticketcity?id='. $_GET['id']:
+        $contTicket->getTicketByCityId( $_GET['id']);
         break;
-        case PAGE_PATH . 'viewticketdatecity':
-            $contTicket->getTicketByDateCity();
-           break;
+    case PAGE_PATH . 'viewticketompany?id='.$_GET['id']:
+        $contTicket->getTicketByCompanyId($_GET['id']);
+        break;
+    case PAGE_PATH . 'viewticketdateanddate':
+        $contTicket->getTicketDateAndCity();
+        break;
     case PAGE_PATH . 'newbooking?id='. $_GET['id']:
         $contBooking->addBooking($_GET['id']);
         break;
@@ -57,27 +60,27 @@ switch ($request) {
         break;
    
      case PAGE_PATH . 'viewbooking?id='. $_GET['id']:
-         $contBooking->getBookingById($_GET['id']);
-                break;
+        $contBooking->getBookingById($_GET['id']);
+        break;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     case PAGE_PATH . 'viewcustombooking':
-                    $contBooking->getBookingByCustomName() ;                 
-                           break;
+       $contBooking->getBookingByCustomName() ;                 
+       break;
     case PAGE_PATH .'viewCompany' :
         $contCompany->getCompany();
-                    break;
-     case PAGE_PATH .'viewCity' :
-        $contCity->getCities();
-                        break;
-     case PAGE_PATH .'viewoneCity?id='. $_GET['id'] :
-        $contCity->getCityById($_GET['id']);
-                            break; 
-    case PAGE_PATH .'viewcities' :
-        $contCity->getCities();
-                                break; 
+       break;
+   case PAGE_PATH .'viewCity' :
+       $contCity->getCities();
+       break;
+   case PAGE_PATH .'viewoneCity?id='. $_GET['id'] :
+       $contCity->getCityById($_GET['id']);
+       break; 
+   case PAGE_PATH .'viewcities' :
+       $contCity->getCities();
+       break; 
 
-    case PAGE_PATH .'deleteCity' :
-        $contCity->deleteCity();
-                            break;          
+   case PAGE_PATH .'deleteCity' :
+       $contCity->deleteCity();
+       break;          
     
     case PAGE_PATH .'newhotel' :
         $contHotel->addHotel();
@@ -85,6 +88,9 @@ switch ($request) {
     case PAGE_PATH .'removehotel' :
         $contHotel->deletehotel();
                              break; 
+     case PAGE_PATH .'viewhotels?id='.$_GET['id']  :
+    $contHotel->indexHotel($_GET['id'] );
+                           break; 
      case PAGE_PATH .'viewhotelscity' :
          $contHotel->getHotelsByCityId();
                              break;  
@@ -108,6 +114,9 @@ switch ($request) {
      case PAGE_PATH .'editrate?id='.$_GET['id'] :
         $contRating->updateRating($_GET['id']);
      break; 
+     case PAGE_PATH .'logout':
+        $contAdmin->logout();
+     break; 
      case PAGE_PATH .'addadmin':
         $contAdmin->addAdmin();
      break; 
@@ -120,7 +129,7 @@ switch ($request) {
      case PAGE_PATH .'updateCustomer?id='.$_GET['id']:
         $contAdmin->updateCustomer($_GET['id']);
      break; 
-     case PAGE_PATH .'removeCustomer':
+     case PAGE_PATH .'removeCustomers':
         $contCustomer->deleteCustomer();
      break; 
      case PAGE_PATH .'viewCustomers':
@@ -128,14 +137,14 @@ switch ($request) {
      break; 
      
             
-              
+     }      
    
 
       
     
     
     
-    }
+    
 
 
 
