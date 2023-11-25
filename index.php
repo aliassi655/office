@@ -78,9 +78,9 @@ switch ($request) {
        $contCity->getCities();
        break; 
 
-   case PAGE_PATH .'deleteCity' :
-       $contCity->deleteCity();
-       break;          
+//    case PAGE_PATH .'deleteCity' :
+//        $contCity->deleteCity();
+//        break;          
     
     case PAGE_PATH .'newhotel' :
         $contHotel->addHotel();
@@ -100,8 +100,9 @@ switch ($request) {
     case PAGE_PATH .'searchcompanies' :
        $contCompany->getCompanyByTitle();
                                  break;
-    case PAGE_PATH .'removecompanies' :
-        $contCompany->deleteCompany();
+    case PAGE_PATH .'editcompanies?id='.$_GET['id'] :
+        $contCompany->updateCompany($_GET['id']);
+        break;
     case PAGE_PATH .'newcompanies' :
           $contCompany->addCompany();
                              break;   

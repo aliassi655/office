@@ -21,7 +21,7 @@ class TicketModel{
         return $this->db->where('company_id', $id)->get('tickets');
     }
     public function getTicketDateAndCity($city,$date_s) {
-        return $this->db->where('city_id',$date_s)->where('date_s',$date_s)->get('tickets');
+        return $this->db->where('city_id',$city)->where('date_s',$date_s)->get('tickets');
     }
     
     
@@ -30,9 +30,9 @@ class TicketModel{
     }
 
     
-    public function deleteTicket($id) {
-        $this->db->where('id', $id);
-        return $this->db->delete('tickets');
-    }
+    // public function deleteTicket($id) {
+    //     $this->db->where('id', $id);
+    //     return $this->db->delete('tickets');
+    // }
 
 }

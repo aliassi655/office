@@ -15,10 +15,10 @@
 
    
 
-    public function deleteCity($id) {
-        $this->db->where('id', $id);
-        return $this->db->delete('cities');
-    }
+    // public function deleteCity($id) {
+    //     $this->db->where('id', $id);
+    //     return $this->db->delete('cities');
+    // }
 
     public function getCity() {
         return $this->db->get('cities');

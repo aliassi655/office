@@ -16,8 +16,15 @@ class   RatingController{
     public function addRating($idhotel){
    
     if($_SERVER['REQUEST_METHOD']=='POST'){
-       $customEmail=$_POST['custom_email'];
-       $rating=$_POST['rating'];
+       $customEmail=$_POST['email'];
+       if($_POST['rating']>10){
+        echo json_encode(['status'=>'unvalid rating']);
+        exit();
+       }
+       else{
+        $rating=$_POST['rating'];
+       }
+      
        $comment=$_POST['comment'];
 
      if($customData=$this->customer->getCustomerByEmail($customEmail)){

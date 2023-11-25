@@ -28,26 +28,26 @@ public function getCities()
 
 }
 
-public function getCityById($id)
-{       
+// public function getCityById($id)
+// {       
    
-    $data=$this->model->getCityById($id);
-    $this->testing($data);
-}
+//     $data=$this->model->getCityById($id);
+//     $this->testing($data);
+// }
     
-     public function deleteCity(){
+//      public function deleteCity(){
                
 
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-     $id=$_POST['id'];
+//     if($_SERVER['REQUEST_METHOD']=='POST'){
+//      $id=$_POST['id'];
     
-    $data=$this->model->deleteCity($id);
-    $this->testing($data);}
+//     $data=$this->model->deleteCity($id);
+//     $this->testing($data);}
 
 
 
 
-}
+// }
 
 
 }

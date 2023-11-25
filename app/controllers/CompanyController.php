@@ -34,18 +34,37 @@ $this->testing($data);
 }
 
 
-public function deleteCompany(){
 
-if($_SERVER['REQUEST_METHOD']=='POST'){
+public function updateCompany($id){
+   
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+     
+    $d=[
+    'address'=>$_POST['address'],
+    'phone'=>$_POST['phone']
+
+];
+    $data=$this->model->updateCompany($id,$d);
+    $this->testing($data);
+    
+    }
+  
+
+}
+
+
+// public function deleteCompany(){
+
+// if($_SERVER['REQUEST_METHOD']=='POST'){
  
 
-$data=$this->model->deleteCompany($_POST['id']);
-$this->testing($data);
+// $data=$this->model->deleteCompany($_POST['id']);
+// $this->testing($data);
 
-}else{
- echo json_encode(['status'=>'nodata in post']);
+// }else{
+//  echo json_encode(['status'=>'nodata in post']);
 
-}}
+// }}
 
 
 public function addCompany(){

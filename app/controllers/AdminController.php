@@ -83,8 +83,8 @@ public function updateAdmin($id){
         }else{
         echo json_encode(['status'=>"please enter email and password"]);
         exit();
-        }}
-
+        }
+    }
         }
     
     

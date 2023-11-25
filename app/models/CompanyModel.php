@@ -18,10 +18,10 @@ class CompanyModel {
         return $this->db->update('companies', $data);
     }
 
-    public function deleteCompany($id) {
-        $this->db->where('id', $id);
-        return $this->db->delete('companies');
-    }
+    // public function deleteCompany($id) {
+    //     $this->db->where('id', $id);
+    //     return $this->db->delete('companies');
+    // }
 
     public function getCompany() {
         return $this->db->get('companies');
